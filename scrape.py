@@ -1,6 +1,7 @@
 import requests
 import json
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 # assign url to cnn top stories
 url = "http://rss.cnn.com/rss/cnn_topstories.rss"
@@ -29,9 +30,11 @@ def news_rss(url):
         print('The scraping job failed. Error: ')
         print(e)
 
-# create .txt file and populate with articles
+# create .txt file in articles directory and populate with articles
 def save_func(article_list):
-    with open('articles.txt', 'w') as f:
+    unique = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
+    filename = 'article'+unique+'.txt'
+    with open(f'articles/{filename}', 'w') as f:
         for a in article_list:
             f.write(a['title'])
             f.write('\n')
